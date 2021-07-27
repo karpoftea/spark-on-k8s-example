@@ -59,4 +59,4 @@
 1. Какие подходы используются в k8s для сбора логов (kubectl logs, sidecar, daemon set)?
 2. Как собрать логи driver и executor используя sidecar pattern?
 
-# References
+### References
