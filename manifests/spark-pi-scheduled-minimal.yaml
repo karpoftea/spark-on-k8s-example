@@ -1,0 +1,26 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: ScheduledSparkApplication
+metadata:
+  name: spark-pi-scheduled-minimal
+  namespace: spark-jobs
+spec:
+  schedule: "@every 5m"
+  template:
+    type: Scala
+    mode: cluster
+    image: "gcr.io/spark-operator/spark:v3.1.1"
+    sparkVersion: "3.1.1"
+    imagePullPolicy: IfNotPresent  
+    mainClass: org.apache.spark.examples.SparkPi
+    mainApplicationFile: "local:///opt/spark/examples/jars/spark-examples_2.12-3.1.1.jar"
+    arguments: ["50000"]
+    restartPolicy:
+      type: Never
+    driver:
+      cores: 1
+      memory: "512m"
+      serviceAccount: spark-jobs-sa
+    executor:
+      cores: 1
+      instances: 1
+      memory: "512m"
